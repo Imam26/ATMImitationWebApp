@@ -17,6 +17,6 @@ namespace ATMImitationWebApp.Models
         public string CardNumber { get; set; }
         public Decimal Balance { get; set; }
 
-        public Client Client { get; set; }
+        public virtual Client Client { get; set; }
     }
 }

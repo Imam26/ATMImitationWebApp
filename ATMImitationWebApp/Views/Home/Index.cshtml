@@ -1,43 +1,55 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<div class="row">
-    <div class="col-md-4">
-        <h3>Авторизация</h3>
-        <form  method="GET" action="/Home/CheckPinCode">
-            <div class="form-group">
-                <label for="inputPin">Пин код:</label>
-                <input id="inputPin"
-                       class="form-control"
-                       type="text"
-                       name="pinCode"
-                       required,                       
-                       placeholder="введите пин"                                
-                       value=@(@ViewBag.pinCode==null? "": @ViewBag.pinCode)>
-            </div>
-            <button type="submit" class="btn btn-primary">Отправить</button>
-            @if (ViewBag.isError == true)
+<div class="container title">
+    <h3>Авторизация</h3>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">           
+            <form class="validate" method="GET" action="/Home/CheckPinCode">
+                <div class="form-group">
+                    <label for="inputPin">Пин код:</label>
+                    <input id="inputPin"
+                           class="form-control"
+                           type="text"
+                           name="pinCode"
+                           placeholder="введите пин"
+                           value=@(@ViewBag.pinCode==null? "": @ViewBag.pinCode)>
+                </div>
+                <button type="submit" class="btn btn-primary">Отправить</button>
+                @if (ViewBag.isError == true)
             {
-                <h4 id ="warningText" class="text-danger">Неверный пин код</h4>
-            }
-        </form>
+                    <h4 id="warningText" class="text-danger">Неверный пин код</h4>
+                }
+            </form>
+        </div>
     </div>
-</div>  
-<script>
-    var pinCodeLen = 4;
+</div>
+    <script>
+        var pinCodeLen = 4;
 
-    $("#inputPin").keypress(function (event) {        
-        if ($(this).val().length == pinCodeLen) {
-            return false;
-        }       
-        if (/[0-9]/.test(event.key) == false) {
-            return false;
-        }
-    })   
+        $("#inputPin").keypress(function (event) {
+            if ($(this).val().length == pinCodeLen) {
+                return false;
+            }
+            if (/[0-9]/.test(event.key) == false) {
+                return false;
+            }
+        })
 
-    $("#inputPin").click(function () {
-        $("#warningText").css("display", "none");
-    })
-</script>
-    
+        $("#inputPin").click(function (e) {
+            $("#warningText").css("display", "none");
+        })
+
+        $(".validate").validate({
+            errorPlacement: function (error, element) {
+                return true;
+            },
+            rules: {
+                pinCode: {
+                    required: true
+                }
+            }
+        })
+    </script>

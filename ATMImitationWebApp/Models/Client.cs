@@ -10,6 +10,6 @@ namespace ATMImitationWebApp.Models
         public int Id { get; set; }
         public string FullName { get; set; }
 
-        public Card Card { get; set; }
+        public virtual Card Card { get; set; }
     }
 }

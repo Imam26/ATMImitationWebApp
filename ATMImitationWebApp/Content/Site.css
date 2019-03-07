@@ -15,3 +15,19 @@ textarea {
 .header{
     color:limegreen;
 }
+.title {
+    border-bottom: 1px solid limegreen;
+    margin-bottom: 30px;
+}
+
+.button-custom{
+    width:80px;
+}
+.form-group-custom{
+    display:flex;
+    justify-content:space-around;
+    margin-bottom:15px;    
+}
+.input-error{
+    border-color:red;
+}

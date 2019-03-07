@@ -10,14 +10,11 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/jquery.validate.min.js")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
     @RenderSection("scripts", required: false)
 </head>
 <body>
-    <div class="container">
-        <h1 class="header">Народный банк</h1>
-        <hr/>
-    </div>
-    <div class="container">
+    <div>
         @RenderBody()        
     </div>        
 </body>
