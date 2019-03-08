@@ -11,5 +11,11 @@ namespace ATMImitationWebApp.Models
         public string FullName { get; set; }
 
         public virtual Card Card { get; set; }
+        public virtual ICollection<Transaction> Transactions { get; set; }
+
+        public Client()
+        {
+            Transactions = new List<Transaction>();
+        }
     }
 }

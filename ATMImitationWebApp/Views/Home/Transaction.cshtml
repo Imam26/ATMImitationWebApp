@@ -1,0 +1,11 @@
+﻿@model IEnumerable<ATMImitationWebApp.Models.Transaction> 
+
+<div class="col-md-6 col-sm-6">
+<h4>Информация по операциям:</h4>
+@{int i = 1;}
+@foreach(var item in Model)
+{
+    <p>@i. Дата: @item.Date.ToString("F"), Сумма: @item.Summa</p>
+    i++;
+}
+</div>

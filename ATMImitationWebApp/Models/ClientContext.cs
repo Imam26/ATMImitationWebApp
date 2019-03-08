@@ -12,5 +12,6 @@ namespace ATMImitationWebApp.Models
         
         public DbSet<Client> Clients { get; set; }
         public DbSet<Card> Cards { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
     }
 }

@@ -20,8 +20,14 @@
                     <input type="submit" value="Остаток на счете" class="btn btn-primary">
                 </div>
             }
+            @using (Ajax.BeginForm("Transaction", new AjaxOptions { UpdateTargetId = "result" }))
+            {
+                <div class="form-group">
+                    <input type="submit" value="Выписка по операциям" class="btn btn-primary">
+                </div>
+            }
         </div>      
-        <div class="col-md-4 col-sm-4" id="result"></div>       
+        <div id="result"></div>       
     </div>
 </div>
 

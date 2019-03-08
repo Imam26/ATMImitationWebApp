@@ -11,7 +11,7 @@ namespace ATMImitationWebApp.Controllers
     public class HomeController : Controller
     {
         ClientContext db = new ClientContext();
-        public static Card currentCard;
+        public static int currentPinCode;
         
         public ActionResult Index()
         {            
@@ -21,7 +21,7 @@ namespace ATMImitationWebApp.Controllers
         [HttpGet]
         public ActionResult CheckPinCode(int pinCode)
         {                               
-            currentCard = db.Cards.ToList().Find(item => item.PinCode == pinCode);
+            Card currentCard = db.Cards.ToList().Find(item => item.PinCode == pinCode);
                                  
             if (currentCard==null)
             {               
@@ -32,13 +32,15 @@ namespace ATMImitationWebApp.Controllers
             }
             else
             {
+                currentPinCode = pinCode;
                 return View("Menu");
             }            
         }
 
         [HttpPost]
         public ActionResult ClientsCardInfo()
-        {            
+        {          
+            Card currentCard = db.Cards.ToList().Find(item => item.PinCode == currentPinCode);
             return PartialView(currentCard);
         }
 
@@ -48,10 +50,20 @@ namespace ATMImitationWebApp.Controllers
             return PartialView();
         }
 
+        [HttpPost]
+        public ActionResult Transaction()
+        {
+            Card currentCard = db.Cards.ToList().Find(item => item.PinCode == currentPinCode);
+            return PartialView(currentCard.Client.Transactions);
+        }
+
         [HttpGet]
         public ActionResult Summa(string value)
-        {            
+        {
+            Card currentCard = db.Cards.ToList().Find(item => item.PinCode == currentPinCode);
+
             int summa = int.Parse(value);
+
             if(currentCard.Balance < summa)
             {
                 var message = new { message = "У вас не достаточно средств для снятия"};
@@ -60,6 +72,7 @@ namespace ATMImitationWebApp.Controllers
             else
             {
                 currentCard.Balance -= summa;
+                currentCard.Client.Transactions.Add(new Transaction { Date=DateTime.Now, Summa=summa});
                 db.SaveChanges();
                 var message = new { message = "Снятие средств выполнено" };
                 return Json(message, JsonRequestBehavior.AllowGet);

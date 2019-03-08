@@ -1,4 +1,4 @@
-﻿<div id="operationForm">
+﻿<div id="operationForm" class="col-md-4 col-sm-4">
     <div class="form-group-custom">
         <button class="btn btn-success button-custom" value="5000">5000</button>
         <button class="btn btn-success button-custom" value="10000">10000</button>
@@ -21,12 +21,10 @@
 </div>
 <script>
     $("div>button").on("click", function (e) {  
-
         if ($(this).val() == "") {
             $("#inputCash").addClass("input-error");
             return;
         }
-
         var summa = { value: $(this).val() };
         $.getJSON("/Home/Summa", summa, function (result) {
             $("#operationForm").hide();
@@ -34,14 +32,13 @@
             $("#state>h4").text(result.message);
         });
     })
+
     $("#inputCash").change(function () {
         $("#withdraw").attr("value", $(this).val());
     })
 
     $("#inputCash").keypress(function (event) {
-
         $("#inputCash").removeClass("input-error");
-
         if ($(this).val().length > 6) {
             return false;
         }
